@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>GRINCOC - TENNIS</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+  <script src="Scripts/LUM.js" type="text/javascript"></script>
+  <!-- Custom styles for this template -->
+  <link href="css/agency.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+  <script type="text/javascript">
+    // function EnviarPost(){
+    // swal.fire('ANDA');
+    // }
+    function SendInscripcion() {
+    spinner();
+    var varDate = $("#txtfechanacimiento").val();
+     //var myDate =  moment(varDate,"YYYY-MM-DD").format("DD-MM-YYYY");
+    //var date = new Date(myDate);
+    //console.log(varDate);
+var Inscripciones = {
+   // "IdInscripciones": "1",
+    "Nombre": $("#txtnombre").val(),
+    "Apellido": $("#txtapellido").val(),
+     "Documento": $("#txtdni").val(),
+     "Edad": $("#txtedad").val(),
+     "Telefono": $("#txttelefono").val(),
+    "EMail": $("#txtemail").val()
+};
+$.ajax({
+    type: "POST",
+    url: "Services/conexionEntrenamiento.php",
+    data: JSON.stringify(Inscripciones) ,
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    processData: true,
+    success: function (data, status, jqXHR) {
+       //console.log(data);
+       // console.log(status);
+       // console.log(jqXHR);
+    //if (data.idInscripciones){ alertOk("Inscripcion Exitosa con el Nro: " + data.idInscripciones);}
+    },
+    error: function (xhr) {
+        console.log(xhr);
+    alertOk(xhr.responseText);
+    Limpar();
+    spinnerClose();
+    }
+});
+    spinnerClose();
+}
+async function Limpar() {
+$(".datoTextoFormulario").val('');
+}
+</script>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="index.html"><img src="img/GC_LOGO-CH.png" alt="" width="193" height="80"/></a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav text-uppercase ml-auto">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#services">Servicios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#portfolio">Nosotros</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#about">Sedes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#team">Becas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#contact">Contacto</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+ 
+
+  <!-- Header -->
+  
+      <header class="masthead">
+       <div class="container">
+           <div class="intro-text">
+               
+                       
+                <br>
+                     
+                     <div class="col-lg-12 text-center">
+            <h4 class="section-subheading">Entrenamiento de prueba</h4>
+          </div>
+          <br>
+           
+            <div class="form-row">
+    <div class="col-sm-12 col-md-6 col-lg-4">
+     <label for="txtnombre">Nombre</label>
+      <input type="text" class="form-control datoTextoFormulario" id="txtnombre" placeholder="nombre">
+      <div class="form-group">
+    <label for="txtedad">Edad</label>
+    <input type="text"  onkeypress="return jsSoloNumeros(event)" class="form-control datoTextoFormulario" id="txtedad" placeholder="edad">
+    <label for="txttelefono">Teléfono</label>
+    <input type="number" id="txttelefono" class="form-control datoTextoFormulario"  onkeypress="return jsSoloNumeros(event)" placeholder="Teléfono">
+  
+    
+  </div>
+
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-4">
+    <label for="txtapellido">Apellido</label>
+    <input type="text" id="txtapellido" class="form-control datoTextoFormulario" placeholder="apellido">
+  
+    <label for="txtemail">Mail</label>
+    <input type="email" class="form-control datoTextoFormulario" id="txtemail" placeholder="Mail">
+    
+  </div>
+           </div>
+           <br>
+            <button type="button" onclick="SendInscripcion()" class="btn btn-warning">Enviar</button>
+                  
+                  
+                  
+                  <br>
+                               
+           </div>
+       </div>
+  </header>
+   
+      
+      
+
+  
+
+ 
+
+
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Contact form JavaScript -->
+  <script src="js/jqBootstrapValidation.js"></script>
+  <script src="js/contact_me.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="js/agency.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.js"></script>
+</body>
+
+</html>
